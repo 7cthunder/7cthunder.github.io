@@ -92,7 +92,8 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>之前在开发数据库课程项目的时候，作为 Leader，一直在想怎么解决前后端开发同时进行的问题，这学期知道了Swagger 这个东西，有了它我们的开发流程是这样的：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">- 协商API</span><br><span class="line">    - 前端开发</span><br><span class="line">        - 编写前端页面</span><br><span class="line">        - 通过 Mock Server 充当真服务端 </span><br><span class="line">    - 服务端开发</span><br><span class="line">        - ...</span><br><span class="line">也就是说，前端在开发过程中，不需要等待服务端的小火鸡写完接口再进行测试，通过 Mock Server 即可返回想要的 Response 进行各种测试。</span><br></pre></td></tr></table></figure></p>
+        <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>之前在开发数据库课程项目的时候，作为 Leader，一直在想怎么解决前后端开发同时进行的问题，这学期知道了Swagger 这个东西，有了它我们的开发流程是这样的：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">- 协商API</span><br><span class="line">    - 前端开发</span><br><span class="line">        - 编写前端页面</span><br><span class="line">        - 通过 Mock Server 充当真服务端 </span><br><span class="line">    - 服务端开发</span><br><span class="line">        - ...</span><br></pre></td></tr></table></figure></p>
+<p>也就是说，前端在开发过程中，不需要等待服务端的小火鸡写完接口再进行测试，通过 Mock Server 即可返回想要的 Response 进行各种测试。</p>
 <h2 id="Swagger"><a href="#Swagger" class="headerlink" title="Swagger"></a>Swagger</h2><p>何为 Swagger，照我的理解，就是一个写API文档的框架，之前写项目基本都是手撸API文档，然后从零编写服务端和客户端代码，而有了它，我们只需要编写一个 yaml 文件，它就可以自动帮我们生成客户端 API 调用代码、服务端大致框架以及一个好用的API文档。</p>
 <p>多说无益，上手玩玩才知道多棒！传送门：<a href="http://editor.swagger.io/" target="_blank" rel="noopener">Swagger Editer</a></p>
 <h3 id="怎么用？"><a href="#怎么用？" class="headerlink" title="怎么用？"></a>怎么用？</h3><p>看看下面这个小例子吧（主要看有注释的那几行即可）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">paths:</span><br><span class="line">  /pet:                                     # api path</span><br><span class="line">    post:                                   # api method</span><br><span class="line">      tags:</span><br><span class="line">      - &quot;pet&quot;</span><br><span class="line">      summary: &quot;Add a new pet to the store&quot;</span><br><span class="line">      description: &quot;&quot;</span><br><span class="line">      operationId: &quot;addPet&quot;                 # 这个名字会成为上面所说生成代码的调用接口</span><br><span class="line">      consumes:                             # Request 数据格式为：</span><br><span class="line">      - &quot;application/json&quot;                  # - json</span><br><span class="line">      - &quot;application/xml&quot;                   # - xml</span><br><span class="line">      produces:                             # Response 数据格式为：</span><br><span class="line">      - &quot;application/xml&quot;                   # - xml</span><br><span class="line">      - &quot;application/json&quot;                  # - json</span><br><span class="line">      parameters:                           # Request 参数</span><br><span class="line">      - in: &quot;body&quot;                          # 参数位于 body 中 (因为 Method 为 POST)</span><br><span class="line">        name: &quot;body&quot;</span><br><span class="line">        description: &quot;Pet object that needs to be added to the store&quot;</span><br><span class="line">        required: true                      # Request 必须有此参数</span><br><span class="line">        schema:</span><br><span class="line">          $ref: &quot;#/definitions/Pet&quot;         # 参数的样式，这里为 Pet</span><br><span class="line">      responses:                            # Response 返回样例</span><br><span class="line">        405:                                # Response status</span><br><span class="line">          description: &quot;Invalid input&quot;</span><br></pre></td></tr></table></figure></p>
@@ -124,7 +125,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://7cthunder.github.io/2019/06/23/Swagger-Mock/" data-id="cjx955xkj000lndrpxo82spvf" class="article-share-link">Share</a>
+      <a data-url="https://7cthunder.github.io/2019/06/23/Swagger-Mock/" data-id="cjx958t8g000lpsrpuzh7kf3f" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mock/">Mock</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Swagger/">Swagger</a></li></ul>
@@ -427,7 +428,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://7cthunder.github.io/2019/05/22/SWAD-Homework4/" data-id="cjx955xk30008ndrp3z28fjdh" class="article-share-link">Share</a>
+      <a data-url="https://7cthunder.github.io/2019/05/22/SWAD-Homework4/" data-id="cjx958t830008psrpeo3nw3zf" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SWAD/">SWAD</a></li></ul>
@@ -544,7 +545,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://7cthunder.github.io/2019/04/13/SWAD-Homework3/" data-id="cjx955xjy0002ndrp2t80a1on" class="article-share-link">Share</a>
+      <a data-url="https://7cthunder.github.io/2019/04/13/SWAD-Homework3/" data-id="cjx958t7v0002psrp6jbt6m41" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SWAD/">SWAD</a></li></ul>
@@ -620,7 +621,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://7cthunder.github.io/2019/04/12/SWAD-Homework2-md/" data-id="cjx955xk20006ndrpjtygpg99" class="article-share-link">Share</a>
+      <a data-url="https://7cthunder.github.io/2019/04/12/SWAD-Homework2-md/" data-id="cjx958t7o0000psrpswfhr2h1" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SWAD/">SWAD</a></li></ul>
@@ -750,7 +751,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://7cthunder.github.io/2019/03/13/SWAD-Homework1/" data-id="cjx955xjt0000ndrptv2pwczu" class="article-share-link">Share</a>
+      <a data-url="https://7cthunder.github.io/2019/03/13/SWAD-Homework1/" data-id="cjx958t810006psrpm5ydyj0m" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SWAD/">SWAD</a></li></ul>
@@ -835,7 +836,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://7cthunder.github.io/2018/11/15/服务计算-gorilla-mux-源码解析/" data-id="cjx955xkt000sndrpn3x7qs3a" class="article-share-link">Share</a>
+      <a data-url="https://7cthunder.github.io/2018/11/15/服务计算-gorilla-mux-源码解析/" data-id="cjx958t8o000spsrpgm172czp" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Go/">Go</a></li></ul>
