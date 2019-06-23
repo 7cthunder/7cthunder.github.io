@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Swagger &amp; Mock | 7cthunder</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="简介之前在开发数据库课程项目的时候，作为 Leader，一直在想怎么解决前后端开发同时进行的问题，这学期知道了Swagger 这个东西，有了它我们的开发流程是这样的：1234567- 协商API    - 前端开发        - 编写前端页面        - 通过 Mock Server 充当真服务端     - 服务端开发        - ...也就是说，前端在开发过程中，不需要等待服务">
+<meta name="keywords" content="Mock,Swagger">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Swagger &amp; Mock">
+<meta property="og:url" content="https://7cthunder.github.io/2019/06/23/Swagger-Mock/index.html">
+<meta property="og:site_name" content="7cthunder">
+<meta property="og:description" content="简介之前在开发数据库课程项目的时候，作为 Leader，一直在想怎么解决前后端开发同时进行的问题，这学期知道了Swagger 这个东西，有了它我们的开发流程是这样的：1234567- 协商API    - 前端开发        - 编写前端页面        - 通过 Mock Server 充当真服务端     - 服务端开发        - ...也就是说，前端在开发过程中，不需要等待服务">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-06-23T16:03:06.671Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Swagger &amp; Mock">
+<meta name="twitter:description" content="简介之前在开发数据库课程项目的时候，作为 Leader，一直在想怎么解决前后端开发同时进行的问题，这学期知道了Swagger 这个东西，有了它我们的开发流程是这样的：1234567- 协商API    - 前端开发        - 编写前端页面        - 通过 Mock Server 充当真服务端     - 服务端开发        - ...也就是说，前端在开发过程中，不需要等待服务">
+  
+    <link rel="alternate" href="/atom.xml" title="7cthunder" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">7cthunder</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">这段代码我已经和小黄鸭商量过了。</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://7cthunder.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Swagger-Mock" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/06/23/Swagger-Mock/" class="article-date">
+  <time datetime="2019-06-23T15:49:33.000Z" itemprop="datePublished">2019-06-23</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/RESTful/">RESTful</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Swagger &amp; Mock
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>之前在开发数据库课程项目的时候，作为 Leader，一直在想怎么解决前后端开发同时进行的问题，这学期知道了Swagger 这个东西，有了它我们的开发流程是这样的：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">- 协商API</span><br><span class="line">    - 前端开发</span><br><span class="line">        - 编写前端页面</span><br><span class="line">        - 通过 Mock Server 充当真服务端 </span><br><span class="line">    - 服务端开发</span><br><span class="line">        - ...</span><br><span class="line">也就是说，前端在开发过程中，不需要等待服务端的小火鸡写完接口再进行测试，通过 Mock Server 即可返回想要的 Response 进行各种测试。</span><br></pre></td></tr></table></figure></p>
+<h2 id="Swagger"><a href="#Swagger" class="headerlink" title="Swagger"></a>Swagger</h2><p>何为 Swagger，照我的理解，就是一个写API文档的框架，之前写项目基本都是手撸API文档，然后从零编写服务端和客户端代码，而有了它，我们只需要编写一个 yaml 文件，它就可以自动帮我们生成客户端 API 调用代码、服务端大致框架以及一个好用的API文档。</p>
+<p>多说无益，上手玩玩才知道多棒！传送门：<a href="http://editor.swagger.io/" target="_blank" rel="noopener">Swagger Editer</a></p>
+<h3 id="怎么用？"><a href="#怎么用？" class="headerlink" title="怎么用？"></a>怎么用？</h3><p>看看下面这个小例子吧（主要看有注释的那几行即可）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">paths:</span><br><span class="line">  /pet:                                     # api path</span><br><span class="line">    post:                                   # api method</span><br><span class="line">      tags:</span><br><span class="line">      - &quot;pet&quot;</span><br><span class="line">      summary: &quot;Add a new pet to the store&quot;</span><br><span class="line">      description: &quot;&quot;</span><br><span class="line">      operationId: &quot;addPet&quot;                 # 这个名字会成为上面所说生成代码的调用接口</span><br><span class="line">      consumes:                             # Request 数据格式为：</span><br><span class="line">      - &quot;application/json&quot;                  # - json</span><br><span class="line">      - &quot;application/xml&quot;                   # - xml</span><br><span class="line">      produces:                             # Response 数据格式为：</span><br><span class="line">      - &quot;application/xml&quot;                   # - xml</span><br><span class="line">      - &quot;application/json&quot;                  # - json</span><br><span class="line">      parameters:                           # Request 参数</span><br><span class="line">      - in: &quot;body&quot;                          # 参数位于 body 中 (因为 Method 为 POST)</span><br><span class="line">        name: &quot;body&quot;</span><br><span class="line">        description: &quot;Pet object that needs to be added to the store&quot;</span><br><span class="line">        required: true                      # Request 必须有此参数</span><br><span class="line">        schema:</span><br><span class="line">          $ref: &quot;#/definitions/Pet&quot;         # 参数的样式，这里为 Pet</span><br><span class="line">      responses:                            # Response 返回样例</span><br><span class="line">        405:                                # Response status</span><br><span class="line">          description: &quot;Invalid input&quot;</span><br></pre></td></tr></table></figure></p>
+<p>上面编写的 yaml 文件就帮我们描述了 POST /pet 这个添加宠物的接口啦！</p>
+<h3 id="生成代码"><a href="#生成代码" class="headerlink" title="生成代码"></a>生成代码</h3><p>我们可以分别生成 Server 和 Client 代码，这里分别选择 go-server 和 JavaScript</p>
+<p>先看看前端 JavaScript 代码，实际上，如果让我们手撸一个这样的接口，我们并不会写得这么健全，如果我们需要发送一个POST请求，那么我们可能只会写 body 这部分的参数，而不会像下面所示代码那样，面面俱到，也许是有些许冗余了，但是机器生成的代码，还要什么自行车呢？<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Add a new pet to the store</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * @param &#123;module:model/Pet&#125; body Pet object that needs to be added to the store</span></span><br><span class="line"><span class="comment"> * @param &#123;module:api/PetApi~addPetCallback&#125; callback The callback function, accepting three arguments: error, data, response</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">this</span>.addPet = <span class="function"><span class="keyword">function</span>(<span class="params">body, callback</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> postBody = body;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// verify the required parameter 'body' is set</span></span><br><span class="line">  <span class="keyword">if</span> (body === <span class="literal">undefined</span> || body === <span class="literal">null</span>) &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">"Missing the required parameter 'body' when calling addPet"</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> pathParams = &#123;</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">var</span> queryParams = &#123;</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">var</span> collectionQueryParams = &#123;</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">var</span> headerParams = &#123;</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">var</span> formParams = &#123;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> authNames = [<span class="string">'petstore_auth'</span>];</span><br><span class="line">  <span class="keyword">var</span> contentTypes = [<span class="string">'application/json'</span>, <span class="string">'application/xml'</span>];</span><br><span class="line">  <span class="keyword">var</span> accepts = [<span class="string">'application/xml'</span>, <span class="string">'application/json'</span>];</span><br><span class="line">  <span class="keyword">var</span> returnType = <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">this</span>.apiClient.callApi(</span><br><span class="line">    <span class="string">'/pet'</span>, <span class="string">'POST'</span>,</span><br><span class="line">    pathParams, queryParams, collectionQueryParams, headerParams, formParams, postBody,</span><br><span class="line">    authNames, contentTypes, accepts, returnType, callback</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>再看看 go-server 代码，其只是一个简单的模板，帮我们写好了 Response 的头，以及帮我们定义了 Pet 这个结构体，需要注意这个需要我们在 yaml 中定义。服务端需要做的，就是搞搞数据库，填填逻辑代码，有了这么一个框架，工作量真的少了！</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// pet_api.go</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">AddPet</span><span class="params">(w http.ResponseWriter, r *http.Request)</span></span> &#123;</span><br><span class="line">    w.Header().Set(<span class="string">"Content-Type"</span>, <span class="string">"application/json; charset=UTF-8"</span>)</span><br><span class="line">    w.WriteHeader(http.StatusOK)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// pet.go</span></span><br><span class="line"><span class="keyword">type</span> Pet <span class="keyword">struct</span> &#123;</span><br><span class="line"></span><br><span class="line">    Id <span class="keyword">int64</span> <span class="string">`json:"id,omitempty"`</span></span><br><span class="line"></span><br><span class="line">    Category *Category <span class="string">`json:"category,omitempty"`</span></span><br><span class="line"></span><br><span class="line">    Name <span class="keyword">string</span> <span class="string">`json:"name"`</span></span><br><span class="line"></span><br><span class="line">    PhotoUrls []<span class="keyword">string</span> <span class="string">`json:"photoUrls"`</span></span><br><span class="line"></span><br><span class="line">    Tags []Tag <span class="string">`json:"tags,omitempty"`</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// pet status in the store</span></span><br><span class="line">    Status <span class="keyword">string</span> <span class="string">`json:"status,omitempty"`</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Mock"><a href="#Mock" class="headerlink" title="Mock"></a>Mock</h2><p>mock 是在测试过程中，对于一些不容易构造/获取的对象，创建一个mock对象来模拟对象的行为，这里我们不深究，我们选 Mockjs 来玩玩看。</p>
+<p>Mock.js 是一款模拟数据生成器，旨在帮助前端工程师独立于后端进行开发，帮助编写单元测试。提供了以下模拟功能：</p>
+<ul>
+<li>根据数据模板生成模拟数据</li>
+<li>模拟 Ajax 请求，生成并返回模拟数据</li>
+<li>基于 HTML 模板生成模拟数据</li>
+</ul>
+<p>直接 <a href="http://mockjs.com/examples.html" target="_blank" rel="noopener">传送</a>，打开控制台就可以照着示例玩耍了：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 例如我想创建一个博客列表，每个条目包含id、评分</span></span><br><span class="line">Mock.mock(&#123;</span><br><span class="line">  <span class="string">'posts|5'</span>: [&#123;</span><br><span class="line">    <span class="string">'id|+1'</span>: <span class="number">1</span>,</span><br><span class="line">    <span class="string">'stars|1-10'</span>: <span class="string">'*'</span></span><br><span class="line">  &#125;]</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// 下面为上述代码所生成</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">"posts"</span>: [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="string">"id"</span>: <span class="number">1</span>,</span><br><span class="line">      <span class="string">"stars"</span>: <span class="string">"*"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="string">"id"</span>: <span class="number">2</span>,</span><br><span class="line">      <span class="string">"stars"</span>: <span class="string">"*"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="string">"id"</span>: <span class="number">3</span>,</span><br><span class="line">      <span class="string">"stars"</span>: <span class="string">"**"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="string">"id"</span>: <span class="number">4</span>,</span><br><span class="line">      <span class="string">"stars"</span>: <span class="string">"*********"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="string">"id"</span>: <span class="number">5</span>,</span><br><span class="line">      <span class="string">"stars"</span>: <span class="string">"*"</span></span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="Swagger-Mock"><a href="#Swagger-Mock" class="headerlink" title="Swagger-Mock"></a>Swagger-Mock</h2><p>当两者结合起来的威力有多大呢，试想一下，一个可以帮你搭建好服务端框架，一个可以帮你任意生成数据，那么合起来，好像就能弄出一个能 work 的 Server 了不是吗！</p>
+<h3 id="swagger-node"><a href="#swagger-node" class="headerlink" title="swagger-node"></a>swagger-node</h3><p>作为一个前端开发人员，node 当然是最亲的啦！swagger支持多种语言，所以我们选择 <a href="https://github.com/swagger-api/swagger-node" target="_blank" rel="noopener">swagger-node</a> 作为伪服务端不是很棒吗。</p>
+<h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g swagger</span><br></pre></td></tr></table></figure>
+<h4 id="创建一个新项目"><a href="#创建一个新项目" class="headerlink" title="创建一个新项目"></a>创建一个新项目</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">swagger project create hello-world</span><br></pre></td></tr></table></figure>
+<p>看看项目的结构：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">├── README.md</span><br><span class="line">├── api</span><br><span class="line">│   ├── assets</span><br><span class="line">│   ├── controllers</span><br><span class="line">│   ├── helpers</span><br><span class="line">│   ├── mocks</span><br><span class="line">│   └── swagger</span><br><span class="line">├── app.js</span><br><span class="line">├── config</span><br><span class="line">│   ├── README.md</span><br><span class="line">│   └── default.yaml</span><br><span class="line">├── package-lock.json</span><br><span class="line">├── package.json</span><br><span class="line">└── test</span><br><span class="line">    └── api</span><br><span class="line"></span><br><span class="line">9 directories, 6 files</span><br></pre></td></tr></table></figure></p>
+<h4 id="编辑你的API文档"><a href="#编辑你的API文档" class="headerlink" title="编辑你的API文档"></a>编辑你的API文档</h4><p>这里与前面说的编写 yaml 基本一致，所编辑的 yaml 文件就在 ./api/swagger 中<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">swagger project edit</span><br></pre></td></tr></table></figure></p>
+<p>不过你需要干一件事，就是给你的 swagger-node 标记一下 controller 所在位置，即：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">paths:</span></span><br><span class="line">  <span class="string">/hello:</span></span><br><span class="line"><span class="attr">      x-swagger-router-controller:</span> <span class="string">hello_world</span>  <span class="comment"># 处理/hello的controller在hello_world.js</span></span><br></pre></td></tr></table></figure></p>
+<p>然后再看看 controller：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ./api/controllers/hello_world.js</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* 记住要将接口暴露出去 */</span></span><br><span class="line"><span class="built_in">module</span>.exports = &#123; hello &#125;; </span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">  Functions in a127 controllers used for operations should take two parameters:</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">  Param 1: a handle to the request object</span></span><br><span class="line"><span class="comment">  Param 2: a handle to the response object</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">hello</span>(<span class="params">req, res</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// variables defined in the Swagger document can be referenced using req.swagger.params.&#123;parameter_name&#125;</span></span><br><span class="line">  <span class="keyword">var</span> name = req.swagger.params.name.value || <span class="string">'stranger'</span>;</span><br><span class="line">  <span class="keyword">var</span> hello = util.format(<span class="string">'Hello, %s!'</span>, name);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// this sends back a JSON response which is a single string</span></span><br><span class="line">  res.json(hello);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>如果你还在手撸 API 文档，不如玩玩 Swagger 啦！</p>
+<p>如果你还在从零构建服务端代码，不如让 Swagger 帮帮你啦！</p>
+<p>如果你还在等服务端的小火鸡完成API开发，不如自己搭建一个 Swagger-Mock-Server 啦！</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://7cthunder.github.io/2019/06/23/Swagger-Mock/" data-id="cjx955xkj000lndrpxo82spvf" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mock/">Mock</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Swagger/">Swagger</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/05/22/SWAD-Homework4/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">SWAD | Homework4</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Go/">Go</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/RESTful/">RESTful</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/SWAD/">SWAD</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Go/">Go</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mock/">Mock</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SWAD/">SWAD</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Swagger/">Swagger</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/Mock/" style="font-size: 10px;">Mock</a> <a href="/tags/SWAD/" style="font-size: 20px;">SWAD</a> <a href="/tags/Swagger/" style="font-size: 10px;">Swagger</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/06/23/Swagger-Mock/">Swagger &amp; Mock</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/22/SWAD-Homework4/">SWAD | Homework4</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/13/SWAD-Homework3/">SWAD | Homework3</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/12/SWAD-Homework2-md/">SWAD | Homework2</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/13/SWAD-Homework1/">SWAD | Homework1</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Sandra<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
